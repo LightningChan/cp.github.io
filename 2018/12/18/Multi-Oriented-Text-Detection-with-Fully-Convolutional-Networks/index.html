@@ -134,24 +134,27 @@
 
 
 
-  <meta name="description" content="Think Different!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://chenpeng.online/tags/index.html">
+  <meta name="description" content="检测单个字符容易受背景干扰，造成漏检或误检的情况，而检测文本框相对于单个字符来说，和背景的区分行更强。因此，能不能结合局部信息（单个字符）和上下文信息（文本块）结合起来，使得检测更加鲁棒性。 FCN 在 2015 年被提出去进行像素分割，那么自然地想到能够标定每个像素属于文字的概率（salient map），也可以得到每个像素是字符中心的概率（centroid map）。">
+<meta name="keywords" content="Scene Text Detection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multi-Oriented Text Detection with Fully Convolutional Networks">
+<meta property="og:url" content="http://chenpeng.online/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/index.html">
 <meta property="og:site_name" content="陈先森的搬砖台">
-<meta property="og:description" content="Think Different!">
+<meta property="og:description" content="检测单个字符容易受背景干扰，造成漏检或误检的情况，而检测文本框相对于单个字符来说，和背景的区分行更强。因此，能不能结合局部信息（单个字符）和上下文信息（文本块）结合起来，使得检测更加鲁棒性。 FCN 在 2015 年被提出去进行像素分割，那么自然地想到能够标定每个像素属于文字的概率（salient map），也可以得到每个像素是字符中心的概率（centroid map）。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-02-27T11:07:54.989Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181218152913.JPG">
+<meta property="og:updated_time" content="2018-12-18T08:25:07.442Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
-<meta name="twitter:description" content="Think Different!">
+<meta name="twitter:title" content="Multi-Oriented Text Detection with Fully Convolutional Networks">
+<meta name="twitter:description" content="检测单个字符容易受背景干扰，造成漏检或误检的情况，而检测文本框相对于单个字符来说，和背景的区分行更强。因此，能不能结合局部信息（单个字符）和上下文信息（文本块）结合起来，使得检测更加鲁棒性。 FCN 在 2015 年被提出去进行像素分割，那么自然地想到能够标定每个像素属于文字的概率（salient map），也可以得到每个像素是字符中心的概率（centroid map）。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181218152913.JPG">
 
 
 
 
 
 
-  <link rel="canonical" href="http://chenpeng.online/tags/">
+  <link rel="canonical" href="http://chenpeng.online/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/">
 
 
 
@@ -161,7 +164,7 @@
   };
 </script>
 
-  <title>标签 | 陈先森的搬砖台</title>
+  <title>Multi-Oriented Text Detection with Fully Convolutional Networks | 陈先森的搬砖台</title>
   
 
 
@@ -294,7 +297,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -399,95 +402,283 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://chenpeng.online/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈鹏">
+      <meta itemprop="description" content="Think Different!">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先森的搬砖台">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-<h1 class="post-title" itemprop="name headline">标签
-
-</h1>
-
-<div class="post-meta">
-  
-  
-
-
-
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                
-                
-                  
-                    
-                  
-                
-                  
-                    
-                  
-                
-                目前共计 2 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Scene-Text/" style="font-size: 12px; color: #ccc">Scene Text</a> <a href="/tags/Scene-Text-Detection/" style="font-size: 12px; color: #ccc">Scene Text Detection</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Multi-Oriented Text Detection with Fully Convolutional Networks
+
+              
+            
+          </h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-18 16:23:05 / 修改时间：16:25:07" itemprop="dateCreated datePublished" datetime="2018-12-18T16:23:05+08:00">2018-12-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/术业专攻/" itemprop="url" rel="index"><span itemprop="name">术业专攻</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/术业专攻/Scene-Text/" itemprop="url" rel="index"><span itemprop="name">Scene Text</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/术业专攻/Scene-Text/Detection/" itemprop="url" rel="index"><span itemprop="name">Detection</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/" class="leancloud_visitors" data-flag-title="Multi-Oriented Text Detection with Fully Convolutional Networks">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>检测单个字符容易受背景干扰，造成漏检或误检的情况，而检测文本框相对于单个字符来说，和背景的区分行更强。因此，能不能结合局部信息（单个字符）和上下文信息（文本块）结合起来，使得检测更加鲁棒性。</p>
+<p>FCN 在 2015 年被提出去进行像素分割，那么自然地想到能够标定每个像素属于文字的概率（salient map），也可以得到每个像素是字符中心的概率（centroid map）。<br><a id="more"></a></p>
+<h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><p>算法流程如下图所示，主要分为：Text Block Detection, Text Line Generation 和 Text Line Candidates Classification。</p>
+<div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181218152913.JPG"></div>
+
+<h4 id="Text-Block-Detection"><a href="#Text-Block-Detection" class="headerlink" title="Text Block Detection"></a>Text Block Detection</h4><p>使用 Text-Block FCN 得到 salient map，然后对其进行过滤，聚类得到文本块。Text-Block FCN 的结构是在 VGG16 的基础上修改的，融合前几层的特征进行预测。</p>
+<h4 id="Text-Line-Generation"><a href="#Text-Line-Generation" class="headerlink" title="Text Line Generation"></a>Text Line Generation</h4><p>步骤大体如下：</p>
+<ul>
+<li>Character Components Extraction：使用 MSER 方法提取字符候选区域，然后利用候选区域的面积和长宽比过滤噪声。</li>
+<li><p>Orientation Estimation：这里假设同一个块中的所有文本线方向是一致的，文本线是近直线的。可以通过寻找最优的垂直坐标偏移 <code>$h$</code> 和角度 <code>$\theta$</code> 确定一条一线，使得该直线穿过字符数最多。公式如下，其中 <code>$\Phi$</code> 是穿过字符的个数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\theta_&#123;r&#125;=\arg \max_&#123;\theta&#125; \max_&#123;h&#125; \Phi(\theta ,h)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Text Line Candidate Generation: 对每个块里的所有字符进行聚类，然后为每个类生成一个 bounding box。</p>
+</li>
+</ul>
+<h4 id="Text-Line-Classification"><a href="#Text-Line-Classification" class="headerlink" title="Text Line Classification"></a>Text Line Classification</h4><p>通过 Character-Centroid FCN 获得每条文本线中的所有可能存在的字符的中心。然后通过 Intensity criterion 和 Geometric criterion 过滤非文本线。</p>
+<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<li>这是较早将分割的思想引入到场景文字检测中，但还是用 MSER 方法提取字符，然后聚类，处理过程繁琐，text blocks 只是用来过滤 false positive 的情况。</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>[1] [2016-CVPR] Multi-Oriented Text Detection with Fully Convolutional Networks <a href="https://arxiv.org/abs/1604.04018" target="_blank" rel="noopener"><code>paper</code></a></li>
+</ul>
+
       
     </div>
-    
-
-
 
     
+
     
     
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>请作者吃酒！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechat-reward.jpg" alt="陈鹏 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scene-Text-Detection/" rel="tag"># Scene Text Detection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/18/Scene-Text-Detection-and-Recognition-Paper-List/" rel="next" title="Scene Text Detection and Recognition Paper List">
+                <i class="fa fa-chevron-left"></i> Scene Text Detection and Recognition Paper List
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -508,8 +699,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -602,6 +802,22 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Methods"><span class="nav-number">1.</span> <span class="nav-text">Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-Block-Detection"><span class="nav-number">1.1.</span> <span class="nav-text">Text Block Detection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-Line-Generation"><span class="nav-number">1.2.</span> <span class="nav-text">Text Line Generation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-Line-Classification"><span class="nav-number">1.3.</span> <span class="nav-text">Text Line Classification</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">2.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -756,6 +972,23 @@
     <script id="dsq-count-scr" src="https://chenpeng-online.disqus.com/count.js" async></script>
   
 
+  
+    <script>
+      var disqus_config = function () {
+        this.page.url = "http://chenpeng.online/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/";
+        this.page.identifier = "2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/";
+        this.page.title = 'Multi-Oriented Text Detection with Fully Convolutional Networks';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://chenpeng-online.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 
@@ -1101,43 +1334,37 @@
   
   <script>
     
-    function showTime(Counter) {
-      var entries = [];
+    function addCount(Counter) {
       var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
 
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { "$in": entries } }) })
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
         .done(function ({ results }) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
+            
+            .done(function () {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            })
+            
+            .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+            })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
           }
         })
-        .fail(function ({ responseJSON }) {
-          console.log("LeanCloud Counter Error: " + responseJSON.code + " " + responseJSON.error);
-        });
+      .fail(function ({ responseJSON }) {
+        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
+      });
     }
     
 
@@ -1157,9 +1384,7 @@
             });
           };
           
-          if ($('.post-title-link').length >= 1) {
-            showTime(Counter);
-          }
+          addCount(Counter);
           
         })
     });
