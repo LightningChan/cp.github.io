@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[EAST]]></title>
+    <url>%2F2018%2F12%2F19%2FEAST%2F</url>
+    <content type="text"><![CDATA[EAST 是一个简洁而高效的文字检测算法，避免了繁琐的后处理方法，直接用 FCN 进行像素级的预测和回归文字框。 ArictectureEAST 使用 PVANet，并借鉴 U-shape 的设计思想，融合高层和底层特征进行预测。Score map 的输出范围为[0,1]，并且代表着基于此像素点预测文本框的置信度。位置信息，可以选择 RBOX 和 QUAD 进行表示。后处理操作包括 Tresholding 和 NMS. Label Generation Score map label 生成如（a）所示，黄色虚线框是人工标注框，绿色框由黄色虚线框边长缩小0.3倍相邻最短边形成的，标注结果如（b）所示。 假设采用 RBOX 标注方式，先生成黄色虚线框的最小外接矩形框（红色），然后计算 score map 中的点分别到四条边的距离，以及红色矩形框的角度。 Limitations论文中，提到了 EAST 的两个缺点： 受限于感受野的大小，不能够很好检测 long text； 对于垂直文本的检测效果不好。 另外，EAST 对于边界的回归也不是很准确。 My Thoughts 针对于感受野小的问题，可以尝试改变卷积核尺寸，宽高比，以及使用 ASPP 等技巧； 对于边界回归不准，可以参考 AdvancedEAST[2]，也可以在训练 geometry 时直接计算点到边的相对距离，这样应该学到更准确的边界信息。 References [1] [2017-CVPR] EAST: An Efficient and Accurate Scene Text Detector paper code [2] AdvancedEAST]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Scene Text</category>
+        <category>Detection</category>
+      </categories>
+      <tags>
+        <tag>Scene Text Detection</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Scene Text Detection via Holistic, Multi-Channel Prediction]]></title>
     <url>%2F2018%2F12%2F18%2FScene-Text-Detection-via-Holistic-Multi-Channel-Prediction%2F</url>
     <content type="text"><![CDATA[文字区域具有很强的边缘特征，因此论文修改 HED 对图像进行密集预测，输出 text region map, charcter map 以及 linking orientation map，最后融合三个 feature map 生成文本框。 Motivation场景文字检测中，简单进行 text/non-text 分割是不够充分的，有许多文本行距离很近，不能够完全的分开。因此，作者引入更多的监督信息，如字符的位置，大小以及连接方向，最后通过图分割（graph partition）得到文本线（text lines）。 MethodPipeline通过模型得到 text region map，character map，linking orientation map。 Figure 1. Pipeline of the proposed algorithm. (a) Original image. (b) Prediction maps. From left to right: text region map, character map and linking orientation map. (c) Detections. 每个 text region 上的 character 作为顶点，character 之间的相似性作为边，构建图模型，用最大生成求最小割，得到每个文本线。相似性包括空间相似性和方向相似性。空间相似性要求同一个文本实例间的 character 距离相近。方向相似性要求每两个 character 形成的直线方向与 linking orientation map 预测的方向接近。最后，将五个层的预测图经过 1*1 的卷积得到 3 个 maps，跟 ground Truth 计算损失值。 ArchitectureFigure 2. Network architecture of the proposed algorithm 网络的 Stage1~Stage 5 是 VGG16 的前五层，每个 stage 接一个 side-output 输出 3 个 response map，将 stage2~5 后面接 deconvolution 得到原图大小尺寸的预测图。 My Thoughts 论文提出的后处理的方法主要是为了得到文本线，文本线也是可以直接预测的，再结合一些方法，就不用如此复杂的后处理了。 论文中提到下一步可能会预测 character shapes 的二值掩码，能够有利于后续的识别步骤。 References [1] [2016] Scene Text Detection via Holistic, Multi-Channel Prediction paper]]></content>
