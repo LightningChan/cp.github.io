@@ -561,8 +561,7 @@
         <p>文字区域具有很强的边缘特征，因此论文修改 HED 对图像进行密集预测，输出 text region map, charcter map 以及 linking orientation map，最后融合三个 feature map 生成文本框。<br><a id="more"></a></p>
 <h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p>场景文字检测中，简单进行 text/non-text 分割是不够充分的，有许多文本行距离很近，不能够完全的分开。因此，作者引入更多的监督信息，如字符的位置，大小以及连接方向，最后通过图分割（graph partition）得到文本线（text lines）。</p>
 <h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><h4 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h4><p>通过模型得到 text region map，character map，linking orientation map。</p>
-<div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd6634207b33.jpg"><p>Figure 1. Pipeline of the proposed algorithm. (a) Original image. (b) Prediction maps. From left to right: text region map, character map and linking orientation map.  (c) Detections.</p>
-</div>
+<div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd6634207b33.jpg"><p>Figure 1. Pipeline of the proposed algorithm. (a) Original image. (b) Prediction maps. From left to right: text region map, character map and linking orientation map.  (c) Detections.</p><br></div>
 
 <p>每个 text region 上的 character 作为顶点，character 之间的相似性作为边，构建图模型，用最大生成求最小割，得到每个文本线。相似性包括空间相似性和方向相似性。空间相似性要求同一个文本实例间的 character 距离相近。方向相似性要求每两个 character 形成的直线方向与 linking orientation map 预测的方向接近。最后，将五个层的预测图经过 1*1 的卷积得到 3 个 maps，跟 ground Truth 计算损失值。</p>
 <h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd664df87c6f.jpg"><p>Figure 2. Network architecture of the proposed algorithm</p></div>
