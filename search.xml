@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[TextSnake]]></title>
+    <url>%2F2018%2F12%2F22%2FTextSnake%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[Shape Robust Text Detection with Progressive Scale Expansion Network]]></title>
     <url>%2F2018%2F12%2F22%2FShape-Robust-Text-Detection-with-Progressive-Scale-Expansion-Network%2F</url>
     <content type="text"><![CDATA[针对任意形状文字检测，论文提出Progressive Scale Expansion Network (PSENet)，通过预测不同尺寸的文字区域的 kernels，然后采用 Breadth-First-Search 的方法从最小尺寸的 kernel 进行逐渐扩张到最大尺寸的 kernel。 ArchitecturePSENet 使用 Resnet 作为 backbone，结合 FPN，将不同层次的特征上采样到同样大小，然后拼接起来，预测不同尺寸的 kernels。最后通过 Progressive Scale Expansion 算法去不断地扩大 kernel，从而得到每个文字块。 PSENet 整体结构 Progressive Scale Expansion AlgorithmPSE 主要基于宽度优先搜索算法，先通过最小的 kernel 分割图，得到 connected components，此时，由于 kernel 较小，得到的是文本块的中心区域，能够将邻近的文本实例区分开，但是边界信息不准确。因此，将 CCs 中的元素压如队列，再依次和大尺寸的 kernel 分割结果合并。 My Thoughts 基于分割的方法，对于邻近的文本实例不容易分开，逐渐扩充的想法，简单而有效。 论文中生成 label 的方法可以参考借鉴。 References [1] [2018] Shape Robust Text Detection with Progressive Scale Expansion Network paper]]></content>
