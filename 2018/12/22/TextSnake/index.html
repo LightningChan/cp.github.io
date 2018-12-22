@@ -134,17 +134,24 @@
 
 
 
-  <meta name="description" content="Think Different!">
+  <meta name="description" content="TextSnake，是一个用于检测任意形状文本的灵活表征。">
+<meta name="keywords" content="Scene Text Detection">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TextSnake">
 <meta property="og:url" content="http://chenpeng.online/2018/12/22/TextSnake/index.html">
 <meta property="og:site_name" content="陈先森的搬砖台">
-<meta property="og:description" content="Think Different!">
+<meta property="og:description" content="TextSnake，是一个用于检测任意形状文本的灵活表征。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-22T13:07:21.244Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222191931.JPG">
+<meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200442.JPG">
+<meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200521.JPG">
+<meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200559.JPG">
+<meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200635.JPG">
+<meta property="og:updated_time" content="2018-12-22T14:21:49.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TextSnake">
-<meta name="twitter:description" content="Think Different!">
+<meta name="twitter:description" content="TextSnake，是一个用于检测任意形状文本的灵活表征。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222191931.JPG">
 
 
 
@@ -462,12 +469,48 @@
                 
               
 
-              <time title="创建时间：2018-12-22 21:07:21" itemprop="dateCreated datePublished" datetime="2018-12-22T21:07:21+08:00">2018-12-22</time>
+              <time title="创建时间：2018-12-22 21:07:21 / 修改时间：22:21:49" itemprop="dateCreated datePublished" datetime="2018-12-22T21:07:21+08:00">2018-12-22</time>
             
 
+            
+              
+
+              
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/术业专攻/" itemprop="url" rel="index"><span itemprop="name">术业专攻</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/术业专攻/Scene-Text/" itemprop="url" rel="index"><span itemprop="name">Scene Text</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/术业专攻/Scene-Text/Detection/" itemprop="url" rel="index"><span itemprop="name">Detection</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -518,7 +561,30 @@
       
 
       
-        
+        <p>TextSnake，是一个用于检测任意形状文本的灵活表征。<br><a id="more"></a></p>
+<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p>现有的方法中，有一个共同的假设，文本行实例的形状大体上是线性的，因此，可以采用相对简单的表征方式进行描述，如 Fig 1 中（a）轴对齐矩形,（b）旋转矩形，（c）四边形。然而，在面对带有透视形变（perspective distortion）的<br>弧形文字 （curved text），这些表征方法在精确估计几何属性方面会有所欠缺，而且会引入更多的背景无关区域。</p>
+<div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222191931.JPG"><p>Figure 1. Comparison of different representations for text instances</p></div>
+
+<p>因此，作者提出 TextSnake，可以适应各种形状的文本实例。本质思想使用凸 N 边形去包裹文本实例，论文结合极坐标很好的实现出来了。</p>
+<h3 id="Mehthod"><a href="#Mehthod" class="headerlink" title="Mehthod"></a>Mehthod</h3><h4 id="Representation"><a href="#Representation" class="headerlink" title="Representation"></a>Representation</h4><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200442.JPG"><p>Figure 2. TextSnake representation</p></div><br>TextSnake 将一个文本区域（黄色）表征为一系列有序而重叠的圆盘（蓝色），其中每个圆盘都由一条中心线（绿色，即对称轴或骨架）贯穿，并带有可变的半径 r 和方向 θ 。直观讲，TextSnake 能够改变其形状以适应不同的变化，比如旋转，缩放，弯曲。<br><br>圆盘并非一一对应于文本实例的字符。但是圆盘序列的几何属性可以改正不规则形状的文本实例，并将其转化为对文本识别器更加友好的矩形等。<br><br>#### Pipeline<br><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200521.JPG"><p>Figure 3. Method framework: network output and post-processing</p></div>
+
+<p>为检测任意形状的文本，本文借助 FCN 模型预测文本实例的几何属性。基于 FCN 的网络预测文本中心线（TCL），文本区域（TR）以及几何属性（包括 r，cosθ，sinθ）的分值图。由于 TCL 是 TR 的一部分，通过 TR 而得到 Masked TCL。假定 TCL 没有彼此重合，需要借助并查集（disjoint set）执行实例分割。Striding Algorithm 用于提取中心轴点，并最终重建文本实例。</p>
+<h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200559.JPG"><p>Figure 4. Network Architecture. Blue blocks are convolution stages of VGG-16</p></div><br>在 FPN 和 U-net 的启发下，本文提出一个方案，可逐渐融合来自主干网络不同层级的特征。主干网络可以是用于图像分类的卷积网络，比如 VGG-16/19 和 ResNet。这些网络可以被分成 5 个卷积阶段（stage）和若干个额外的全连接层。本文移除全连接层，并在每个阶段之后将特征图馈送至特征融合网络。<br><br>#### Inference<br><br>经过前向传播之后，网络输出 TCL，TR 以及几何图。对于 TCL 和 TR，阈值分别设为 T_tcl 和 T_tr；接着，TCL 和 TR 的交叉点给出 TCL 最后的预测。通过并查集，可以有效把 TCL 像素分割进不同的文本实例。最后，Striding Algorithm 被设计以提取用来表示文本实例形状和进程（course）的有序点，同时重建文本实例区域。<br><br><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200635.JPG"><p>Figure 5. Framework of Post-processing Algorithm</p></div>
+
+<p>Striding Algorithm 的流程如 Fig 5 所示。它主要包含 3 个部分：Act(a)Centralizing ，Act(b) Striding 和 Act(c)Sliding 。首先，本文随机选择一个像素作为起点，并将其中心化。接着，搜索过程分支为两个相反的方向——striding 和 centralizing 直到结束。这一过程将在两个相反方向上生成两个有序点，并可结合以生成最终的中心轴，它符合文本的进程，并精确描述形状。</p>
+<h3 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h3><p>Total-Text &amp; CTW1500 数据集上展开的是有关曲形文本的实验，其优异表现证明了TextSnake 在处理曲形文本方面的有效性。</p>
+<p>ICDAR 2015 上进行的是有关偶然场景文本的实验。在单一尺度测试中，TextSnake 超越了绝大多数现有方法（包括那些在多尺度中评估的方法），这证明了 TextSnake 的通用性以及已经可用于复杂场景的多方向文本。</p>
+<p>本文在 MSRA-TD500 上进行有关长直文本线的实验。其中 TextSnake 的 F 值 78.3% 优于其他方法。</p>
+<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><ul>
+<li>想法十分新颖，TextSnake 对文本实例的精确描述具有强大的能力，因此能够带来很大的提升。</li>
+<li>论文中提到，TextSnake 进行表征还有另外一个好处，能够很方便的转换成规范的形式，有利于后续的文本识别过程。    </li>
+<li>后处理操作过于繁琐，并且顶端的边界包裹不准确。</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li>[1] [2018-ECCV] TextSnake: A Flexible Representation for Detecting Text of Arbitrary Shapes <a href="https://arxiv.org/pdf/1807.01544.pdf" target="_blank" rel="noopener"><code>paper</code></a></li>
+<li>[2] blog: <a href="https://zhuanlan.zhihu.com/p/40864789" target="_blank" rel="noopener">旷视科技提出TextSnake：检测任意形状文本的灵活表征</a></li>
+</ul>
+
       
     </div>
 
@@ -562,6 +628,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scene-Text-Detection/" rel="tag"># Scene Text Detection</a>
+          
+        </div>
       
 
       
@@ -632,8 +704,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -726,6 +807,22 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mehthod"><span class="nav-number">2.</span> <span class="nav-text">Mehthod</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Representation"><span class="nav-number">2.1.</span> <span class="nav-text">Representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architecture"><span class="nav-number">2.2.</span> <span class="nav-text">Architecture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Experiments"><span class="nav-number">3.</span> <span class="nav-text">Experiments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discussion"><span class="nav-number">4.</span> <span class="nav-text">Discussion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">5.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
