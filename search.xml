@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Shape Robust Text Detection with Progressive Scale Expansion Network]]></title>
+    <url>%2F2018%2F12%2F22%2FShape-Robust-Text-Detection-with-Progressive-Scale-Expansion-Network%2F</url>
+    <content type="text"><![CDATA[针对任意形状文字检测，论文提出Progressive Scale Expansion Network (PSENet)，通过预测不同尺寸的文字区域的 kernels，然后采用 Breadth-First-Search 的方法从最小尺寸的 kernel 进行逐渐扩张到最大尺寸的 kernel。 ArchitecturePSENet 使用 Resnet 作为 backbone，结合 FPN，将不同层次的特征上采样到同样大小，然后拼接起来，预测不同尺寸的 kernels。最后通过 Progressive Scale Expansion 算法去不断地扩大 kernel，从而得到每个文字块。 PSENet 整体结构 Progressive Scale Expansion AlgorithmPSE 主要基于宽度优先搜索算法，先通过最小的 kernel 分割图，得到 connected components，此时，由于 kernel 较小，得到的是文本块的中心区域，能够将邻近的文本实例区分开，但是边界信息不准确。因此，将 CCs 中的元素压如队列，再依次和大尺寸的 kernel 分割结果合并。 My Thoughts 基于分割的方法，对于邻近的文本实例不容易分开，逐渐扩充的想法，简单而有效。 论文中生成 label 的方法可以参考借鉴。 References [1] [2018] Shape Robust Text Detection with Progressive Scale Expansion Network paper]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Scene Text</category>
+        <category>Detection</category>
+      </categories>
+      <tags>
+        <tag>Scene Text Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[PixelLink]]></title>
+    <url>%2F2018%2F12%2F22%2FPixelLink%2F</url>
+    <content type="text"><![CDATA[PixelLink 使用实例分割（Instance Segmentation）来实现文本检测，首先分割出文本区域，然后直接找出文本框，完全摒弃位置回归（Location Regression）的思想。 ArchitecturePixelLink 进行两种像素级别的预测：text/non-text 和 link 预测。标注时，在文本实例内部像素标为 positive，其余的标为 negative。Link 启发于 SegLink，但有所不同，每个像素点有 8 个邻居。给定一个像素点以及它的一个邻居点，如果它们同属于一个文本实例，则它们之间的 link 为 positive。 Figure 1. Structure of PixelLink+VGG16 2s PixelLink 将 VGG-16 结构作为基础网络，将后两层全连接转化为卷积，然后仿照类似 FPN 的结构，融合多层语义信息，最后得到原图二分之一大小的特征图。对于 link 的输出 feature map，其排列的顺序为：top-left，top，top-rignt，left，right，bottom-left，bottom，bottom-right。总的输出维度为 18 。 最后得到 pixels 和 links，然后根据link positive 将pixel positive 进行连接，得到 Cs(conected compoents)集合，集合中的每个元素代表的就是文本实例。两个 pixel 需要连接的前提条件：two link中至少有一个link positive．连接的规则采用的是 Disjoint set data structure (并查集)的方法。 基于上述 CCs 集合，直接掉调用 opencv 的 minAreaRect 提取带方向信息的矩形框。在此之后，还要根据在训练集上统计的信息，进行过滤，去掉噪声。 Loss由于文本行的长宽比变化范围广泛，若在计算loss的时候，对所有的 pixel positive 给予相同的权重，这对小面积的文本行是非常不公平的，针对上述问题，论文中提出了Instance-Balanced Cross-Entropy Loss。 My Thoughts 与CTPN，EAST，SegLink相比，PixelLink 对感受野的要求更少，因为每个神经元值只负责预测自己及其邻域内的状态。但是，会不会由于缺乏上下文信息，导致出现假阳性？ PixelLink 不需要用 imagenet 数据集训练的权重进行初始化。 与 SegLink 一样，不能检测很大的文本，这是因为link主要是用于连接相邻的segments，而不能用于检测相距较远的文本行。 后处理部分，严重依赖对数据集统计信息，对实验效果影响占比很大。 References [1] [2018-AAAI] PixelLink: Detecting Scene Text via Instance Segmentation paper code]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Scene Text</category>
+        <category>Detection</category>
+      </categories>
+      <tags>
+        <tag>Scene Text Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Self-organized Text Detection with Minimal Post-processing via Border Learning]]></title>
+    <url>%2F2018%2F12%2F22%2FSelf-organized-Text-Detection-with-Minimal-Post-processing-via-Border-Learning%2F</url>
+    <content type="text"><![CDATA[论文提出了基于分割的文本行级别的检测算法，通过引入 text border，再经过极少的后处理操作就能得到文本框。 Motivation根据检测单元的不同，相关算法可以分为： component detection：检测字符的一部分，再通过后处理连成检测框。 character detection：字符是单词的最小组成单元。 word detection：单词是常用的标准。 line detection：符合人类的阅读习惯。 region detection：能够排除很多 fasle positive。 其中，component/character 检测可划分为 bottom-up 的方法，而 region 检测为 up-down 的方法。通常，word/line 层次的检测框是想要的最终的结果，那么，直接把候选框就定为 word/line 级别则更方便。另外，现在许多基于分割的方法，后处理的操作过于复杂，且不是端到端的训练。因此，论文对于每个像素，进行 text，non-text 和 border 预测，最后通过简单的处理操作就能得到文本框。 MethodArchitecture算法采用自行设计的 FCN，最后输出 text map, non-text map 和 border map。 Figure 2. Fully convolutional networks used in the proposed method. Left: single resolution FCN. Right: multi-resolution FCN.#### Decoder得到最终的概率图后，先根据 text/non-text 得到 connected components，然后使用训练时 border c 的参数放大，得到检测框，具体步骤如下： My Thoughts 论文发现仅依靠 text region 是不足以区分邻近的实例。指出了两个重要问题：why are line-level annotations not sufficient？what can be done to resolve this problem？许多基于分割的方法，都在分析解决这两个问题。 border 确实是个好想法，能把帮助分开不同文本实例，而且后处理操作也简单，同样有篇利用 border 信息的论文[2]。 模型的训练数据是作者们提出的 PPT dataset，但是在 ICDAR 数据上进行训练时，没有讲清楚如何得到 border 标注信息。 另外，需要注意的是，论文里的实验都是基于文本行级别进行的。 References [1] [2017-ICCV] Self-organized Text Detection with Minimal Post-processing via Border Learning paper code [2] [2017-ICIP] WordFence: Text Detection in Natural Images with Border Awareness paper]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Scene Text</category>
+        <category>Detection</category>
+      </categories>
+      <tags>
+        <tag>Scene Text Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Multi-scale FCN with Cascaded Instance Aware Segmentation for Arbitrary Oriented Word Spotting In The Wild]]></title>
+    <url>%2F2018%2F12%2F22%2FMulti-scale-FCN-with-Cascaded-Instance-Aware-Segmentation-for-Arbitrary-Oriented-Word-Spotting-In-The-Wild%2F</url>
+    <content type="text"><![CDATA[论文基于 FCN 分割的方法，结合 coarse-to-fine 的思想，先得到 text regions，再进行实例级分割得到文本框。 Pipeline 首先，使用 multi-scale FCN 提取图像中的 text regions，对于每个 text region 进行裁剪，依次送进 TL-CNN 中得到其所有的 text center lines，再依次将 text center line 和裁剪的原图合并送进 IA-CNN 进行分割，得到最终的文本框。 ArchitectureMutil-scale FCN 简单来说，就是送进网络训练的图像尺寸不一样，最后把所有的结果进行联合，每个尺寸的损失值也要进行计算，但是不同分支是共用卷积层的。 Multi-FCN architecture Instance segmentation 主要包括 TL-CNN 和 IA-CNN，其方法如下： Method of instance segmentation My Thoughts 想法有点类似于 Faster RCNN 的两阶段处理，只不过这里都是用 FCN 来分割，后来的许多方法是基于 Mask RCNN，其主要思路也是先粗后细。 Multi-scale 的做法，是不是可以在数据预处理进行 scale 的操作来替代，以减少网络训练的复杂度。 论文里提到几个有趣的观察，text block 召回的 false positive，text center line 可以过滤掉。还有就是有些字符的特征很难和背景噪声区分，如“I”，但并不意味字符特征就没用。 References [1] [2017-CVPR] Multi-scale FCN with Cascaded Instance Aware Segmentation for Arbitrary Oriented Word Spotting In The Wild paper]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Scene Text</category>
+        <category>Detection</category>
+      </categories>
+      <tags>
+        <tag>Scene Text Detection</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[EAST]]></title>
     <url>%2F2018%2F12%2F19%2FEAST%2F</url>
     <content type="text"><![CDATA[EAST 是一个简洁而高效的文字检测算法，避免了繁琐的后处理方法，直接用 FCN 进行像素级的预测和回归文字框。 ArictectureEAST 使用 PVANet，并借鉴 U-shape 的设计思想，融合高层和底层特征进行预测。Score map 的输出范围为[0,1]，并且代表着基于此像素点预测文本框的置信度。位置信息，可以选择 RBOX 和 QUAD 进行表示。后处理操作包括 Tresholding 和 NMS. Label Generation Score map label 生成如（a）所示，黄色虚线框是人工标注框，绿色框由黄色虚线框边长缩小0.3倍相邻最短边形成的，标注结果如（b）所示。 假设采用 RBOX 标注方式，先生成黄色虚线框的最小外接矩形框（红色），然后计算 score map 中的点分别到四条边的距离，以及红色矩形框的角度。 Limitations论文中，提到了 EAST 的两个缺点： 受限于感受野的大小，不能够很好检测 long text； 对于垂直文本的检测效果不好。 另外，EAST 对于边界的回归也不是很准确。 My Thoughts 针对于感受野小的问题，可以尝试改变卷积核尺寸，宽高比，以及使用 ASPP 等技巧； 对于边界回归不准，可以参考 AdvancedEAST[2]，也可以在训练 geometry 时直接计算点到边的相对距离，这样应该学到更准确的边界信息。 References [1] [2017-CVPR] EAST: An Efficient and Accurate Scene Text Detector paper code [2] AdvancedEAST]]></content>
