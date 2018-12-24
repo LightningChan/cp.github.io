@@ -147,7 +147,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200521.JPG">
 <meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200559.JPG">
 <meta property="og:image" content="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200635.JPG">
-<meta property="og:updated_time" content="2018-12-22T14:21:49.238Z">
+<meta property="og:updated_time" content="2018-12-23T07:54:15.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TextSnake">
 <meta name="twitter:description" content="TextSnake，是一个用于检测任意形状文本的灵活表征。">
@@ -451,6 +451,8 @@
         
 
         <div class="post-meta">
+			
+		
           <span class="post-time">
 
             
@@ -469,12 +471,24 @@
                 
               
 
-              <time title="创建时间：2018-12-22 21:07:21 / 修改时间：22:21:49" itemprop="dateCreated datePublished" datetime="2018-12-22T21:07:21+08:00">2018-12-22</time>
+              <time title="创建时间：2018-12-22 21:07:21" itemprop="dateCreated datePublished" datetime="2018-12-22T21:07:21+08:00">2018-12-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-23 15:54:15" itemprop="dateModified" datetime="2018-12-23T15:54:15+08:00">2018-12-23</time>
               
             
           </span>
@@ -566,7 +580,7 @@
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222191931.JPG"><p>Figure 1. Comparison of different representations for text instances</p></div>
 
 <p>因此，作者提出 TextSnake，可以适应各种形状的文本实例。本质思想使用凸 N 边形去包裹文本实例，论文结合极坐标很好的实现出来了。</p>
-<h3 id="Mehthod"><a href="#Mehthod" class="headerlink" title="Mehthod"></a>Mehthod</h3><h4 id="Representation"><a href="#Representation" class="headerlink" title="Representation"></a>Representation</h4><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200442.JPG"><p>Figure 2. TextSnake representation</p></div><br>TextSnake 将一个文本区域（黄色）表征为一系列有序而重叠的圆盘（蓝色），其中每个圆盘都由一条中心线（绿色，即对称轴或骨架）贯穿，并带有可变的半径 r 和方向 θ 。直观讲，TextSnake 能够改变其形状以适应不同的变化，比如旋转，缩放，弯曲。<br><br>圆盘并非一一对应于文本实例的字符。但是圆盘序列的几何属性可以改正不规则形状的文本实例，并将其转化为对文本识别器更加友好的矩形等。<br><br>#### Pipeline<br><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200521.JPG"><p>Figure 3. Method framework: network output and post-processing</p></div>
+<h3 id="Mehthod"><a href="#Mehthod" class="headerlink" title="Mehthod"></a>Mehthod</h3><h4 id="Representation"><a href="#Representation" class="headerlink" title="Representation"></a>Representation</h4><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200442.JPG"><p>Figure 2. TextSnake representation</p></div><br>TextSnake 将一个文本区域（黄色）表征为一系列有序而重叠的圆盘（蓝色），其中每个圆盘都由一条中心线（绿色，即对称轴或骨架）贯穿，并带有可变的半径 r 和方向 θ 。直观讲，TextSnake 能够改变其形状以适应不同的变化，比如旋转，缩放，弯曲。<br><br>圆盘并非一一对应于文本实例的字符。但是圆盘序列的几何属性可以改正不规则形状的文本实例，并将其转化为对文本识别器更加友好的矩形等。<br><br>#### Pipeline<br><br><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200521.JPG"><p>Figure 3. Method framework: network output and post-processing</p></div>
 
 <p>为检测任意形状的文本，本文借助 FCN 模型预测文本实例的几何属性。基于 FCN 的网络预测文本中心线（TCL），文本区域（TR）以及几何属性（包括 r，cosθ，sinθ）的分值图。由于 TCL 是 TR 的一部分，通过 TR 而得到 Masked TCL。假定 TCL 没有彼此重合，需要借助并查集（disjoint set）执行实例分割。Striding Algorithm 用于提取中心轴点，并最终重建文本实例。</p>
 <h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200559.JPG"><p>Figure 4. Network Architecture. Blue blocks are convolution stages of VGG-16</p></div><br>在 FPN 和 U-net 的启发下，本文提出一个方案，可逐渐融合来自主干网络不同层级的特征。主干网络可以是用于图像分类的卷积网络，比如 VGG-16/19 和 ResNet。这些网络可以被分成 5 个卷积阶段（stage）和若干个额外的全连接层。本文移除全连接层，并在每个阶段之后将特征图馈送至特征融合网络。<br><br>#### Inference<br><br>经过前向传播之后，网络输出 TCL，TR 以及几何图。对于 TCL 和 TR，阈值分别设为 T_tcl 和 T_tr；接着，TCL 和 TR 的交叉点给出 TCL 最后的预测。通过并查集，可以有效把 TCL 像素分割进不同的文本实例。最后，Striding Algorithm 被设计以提取用来表示文本实例形状和进程（course）的有序点，同时重建文本实例区域。<br><br><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222200635.JPG"><p>Figure 5. Framework of Post-processing Algorithm</p></div>
