@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2019 读书计划]]></title>
+    <url>%2F2019%2F01%2F01%2F2019-%E8%AF%BB%E4%B9%A6%E8%AE%A1%E5%88%92%2F</url>
+    <content type="text"><![CDATA[You can either travel or read, but either your body or soul must be on the way! Roman Holiday 社科类 菲利普·津巴多：《态度改变与社会影响》 哲学类 罗伯特·罗素：《西方哲学史》 王阳明：《传习录》 洪应明：《菜根谭》 胡适：《中国哲学史大纲》 历史类 黄仁宇：《中国大历史》 郭建龙：《穿越百年中东》 雅克·阿塔利：《未来简史》 林汉达：《中国历史故事集》 思维类 查理·芒格：《穷查理宝典》 沟通类 马歇尔·卢森堡：《非暴力沟通》 科里帕特森：《关键对话》 心理学类 凯利·麦格尼格尔：《自控力》 阿尔弗雷德·阿德勒：《理解人性》 戴维·迈尔斯：《社会心理学》 小说类 阿尔贝.加缪：《局外人》 乔治·奥威尔：《1984》 其他 华杉：《华杉讲透孙子兵法》]]></content>
+      <categories>
+        <category>读万卷书</category>
+      </categories>
+      <tags>
+        <tag>阅读计划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mask TextSpotter]]></title>
+    <url>%2F2018%2F12%2F25%2FMask-TextSpotter%2F</url>
+    <content type="text"><![CDATA[论文启发于 Mask RCNN，提出一种 end2end 的场景文字检测和识别模型，能够检测和识别任意形状的文本。 论文认为文献[2]和[3]虽然提出了 end2end 模型，但是训练的时候还是分步骤训练的，不能完全达到一个 end2end的行为。另外，它们只聚焦于水平或旋转的文本，不能解决弯曲的文本。 ArchitectureFigure 1. Model architecture 如 figure 1 所示，mask textspotter 由四部分组成： Backbone：FPN + ResNet50，用来提取特征图。 RPN：生成 text proposals，然后使用 RoI Align 提取 RoI 特征。 Fast RCNN：对 text proposals 进行更精确地分类和回归。 Mask Branch：包含 text instance 分割和 character 分割任务。如 figure 2 所示，会输出一个 global word map，36 个 character maps 和一个 background map。 Figure 2. Mask branch character 的 Bbox 被缩小成原来的四分之一。 Loss Function损失函数可以定义为：$$L = L_{rpn} + \alpha_1 L_{rcnn} + \alpha_2 L_{mask} L_{mask}=L_{global}+\beta L_{char}$$这里的 $\alpha_1,\alpha_2,\beta$ 都设为 1，其中 $L_{global}$ 是一个平均 binary cross-entropy 损失：$$L_{global}= - \frac{1}{N} \sum_{n=1}^{N} [y_n \times \log(S(x_n))+(1-y_n) \times \log(1-S(x_n))]$$这里的 $S(x)$ 是 sigmoid 函数。 $L_{char}$ 是一个加权的 soft-max 损失， $Y$ 是 $X$ 对应的 ground truth：$$L_{char}= - \frac{1}{N} \sum_{n=1}^{N} W_n \sum_{t=0}^{T-1} Y_{n,t} \log(\frac{e^{x_{n,t}}}{\sum_{k=0}^{T-1}e^{x_{n,k}}})$$记背景像素的数量为 $N_{neg}$,有： $$W_i=\left{\begin{aligned} &amp; 1 &amp;if \quad Y_{i,0}=1 \\ &amp; N_{neg}/(N-N_{neg}) &amp; otherwise\end{aligned}\right.$$ Inference测试将 Fast RCNN 产生的 Bbox 经过 NMS 后作为候选框输入 mask branch 生成 global maps 和 character maps。最后产生的 polygons 直接通过计算 global maps 得到。字符序列则通过 pixel voting 算法。 Pixel Voting 流程： 将 background map 进行二值化得到所有的字符区域； 对于所有的 character maps 求每个字符区域的像素得分均值，把得分最高的字符类别得分设为该区域输出的字符； 把所有的字符从左到右连接得到字符序列。 论文发现如果使用普通的编辑距离去匹配单词，会有多个的编辑距离一样，因此提出 weighted edit distance。 My Thoughts Mask TextSpotter 本质是用 Faster RCNN 进行目标定位，然后使用目标分割来识别字符，那么可以替换分割算法提升效果。 之前的 text spotter 模型都是先分开训练，再联合训练，这个能直接联合训练。 英文的字母较少，在中文上可能不行。 References [1] [2018-ECCV] Mask TextSpotter: An End-to-End Trainable Neural Network for Spotting Text with Arbitrary Shapes paper [2] [2017-ICCV] Deep TextSpotter: An End-to-End Trainable Scene Text Localization and Recognition Framework papercode [3] [2017-ICCV] Towards end-to-end text spotting with convolutional recurrent neural networks. paper]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Scene Text</category>
+        <category>End2end</category>
+      </categories>
+      <tags>
+        <tag>Scene Text</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[TextContourNet]]></title>
     <url>%2F2018%2F12%2F25%2FTextContourNet%2F</url>
     <content type="text"><![CDATA[TextContourNet 利用实例级别的场景文字的边界轮廓信息，帮助提高文字检测器的能力。 Text Contour这里的文本轮廓不是语义级别的，是针对每个文本实例。轮廓可以由边界框来生成，论文中使用一种平滑的轮廓信息来进行训练，其生成公式如下所示，其中 $S_{contour}$ 表示边界框上的像素点集合。 Architecture论文主要想论证，引入轮廓信息能够帮助常规的文本检测器提高检测效果。选用 EAST 模型作为基础文本检测器。并设计了几种不同的引入方法。 Auxiliary TextContourNet，将 contour task 作为 auxiliary loss。 Cascade TextContourNet 设计两种方案。第一种，两个分支不共享 encoder 模块，将得到的轮廓结果和原图拼接在一起，再进行检测。 第二种就是共享 encoder 模块，将得到的轮廓结果和检测分支的特征拼接在一起，再进行检测。 最后的实验结果表明，Cascade 模式下共享 encoder 的效果是最好的，可能的原因是在两种损失的联合下，encoder 部分训练得更好，可以再补充一个实验证明一下，即共享 encoder 模块，将得到的轮廓结果和原图拼接，进行检测。 My Thoughts 论文中提到的 Text Contour 其实和 Text Border 的概念是类似，早有工作将 border 信息引入场景文字检测中，确实发现有效果。 contour ground truth 采用平滑的方式，想法不错。 利用分割得到一些辅助信息，然后和检测分支拼接，帮助提高检测效果。有许多工作进行尝试，如文献[3]中，通过分割得到 text/non-text map，来消除背景噪声。文献[2]提取 text center line 再和原图拼接，进行检测，不过它是 crop 每个 text regions 进行的，比较繁琐。 References [1] [2018]TextContourNet: a Flexible and Effective Framework for Improving Scene Text Detection Architecture with a Multi-task Cascade paper [2] [2017-CVPR] Multi-scale FCN with Cascaded Instance Aware Segmentation for Arbitrary Oriented Word Spotting In The Wild paper [3] [2017-ICCV] Single shot text detector with regional attention paper code]]></content>
