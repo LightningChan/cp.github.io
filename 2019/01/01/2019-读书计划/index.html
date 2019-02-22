@@ -143,7 +143,7 @@
 <meta property="og:description" content="You can either travel or read, but either your body or soul must be on the way! Roman Holiday">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://static.leiphone.com/uploads/new/article/740_740/201701/588317a4e2934.jpg?imageMogr2/format/jpg/quality/90">
-<meta property="og:updated_time" content="2019-01-01T06:32:33.491Z">
+<meta property="og:updated_time" content="2019-01-01T09:14:32.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019 读书计划">
 <meta name="twitter:description" content="You can either travel or read, but either your body or soul must be on the way! Roman Holiday">
@@ -467,7 +467,7 @@
                 
               
 
-              <time title="创建时间：2019-01-01 13:52:25 / 修改时间：14:32:33" itemprop="dateCreated datePublished" datetime="2019-01-01T13:52:25+08:00">2019-01-01</time>
+              <time title="创建时间：2019-01-01 13:52:25 / 修改时间：17:14:32" itemprop="dateCreated datePublished" datetime="2019-01-01T13:52:25+08:00">2019-01-01</time>
             
 
             
@@ -514,17 +514,6 @@
 
           
           
-             <span id="/2019/01/01/2019-读书计划/" class="leancloud_visitors" data-flag-title="2019 读书计划">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -545,7 +534,7 @@
       
 
       
-        <p><img src="http://static.leiphone.com/uploads/new/article/740_740/201701/588317a4e2934.jpg?imageMogr2/format/jpg/quality/90" alt="image"><br> <blockquote class="blockquote-center">You can either travel or read, but either your body or soul must be on the way!<br> Roman Holiday<br> </blockquote><br><a id="more"></a></p>
+        <p><blockquote class="blockquote-center">You can either travel or read, but either your body or soul must be on the way!<br> Roman Holiday<br> </blockquote><br><a id="more"></a><br><img src="http://static.leiphone.com/uploads/new/article/740_740/201701/588317a4e2934.jpg?imageMogr2/format/jpg/quality/90" alt="image"></p>
 <h4 id="社科类"><a href="#社科类" class="headerlink" title="社科类"></a>社科类</h4><ul>
 <li style="list-style: none"><input type="checkbox"> 菲利普·津巴多：《态度改变与社会影响》</li>
 </ul>
@@ -1337,67 +1326,6 @@
 
 
   
-
-  
-  <script>
-    
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
-        .done(function ({ results }) {
-          if (results.length > 0) {
-            var counter = results[0];
-            
-            Counter('put', `/classes/Counter/${counter.objectId}`, JSON.stringify({ time: { "__op":"Increment", "amount":1 } }))
-            
-            .done(function () {
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.time + 1);
-            })
-            
-            .fail(function ({ responseJSON }) {
-                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
-            })
-          } else {
-            
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
-            
-          }
-        })
-      .fail(function ({ responseJSON }) {
-        console.log('LeanCloud Counter Error:' + responseJSON.code + " " + responseJSON.error);
-      });
-    }
-    
-
-    $(function() {
-      $.get('https://app-router.leancloud.cn/2/route?appId=' + "PJOrlDckODloohFFnkr63uoR-gzGzoHsz")
-        .done(function ({ api_server }) {
-          var Counter = function (method, url, data) {
-            return $.ajax({
-              method: method,
-              url: `https://${api_server}/1.1${url}`,
-              headers: {
-                'X-LC-Id': "PJOrlDckODloohFFnkr63uoR-gzGzoHsz",
-                'X-LC-Key': "HKazAXdGUjeu04oMRz7X7mwj",
-                'Content-Type': 'application/json',
-              },
-              data: data,
-            });
-          };
-          
-          addCount(Counter);
-          
-        })
-    });
-  </script>
-
-
 
   
 
