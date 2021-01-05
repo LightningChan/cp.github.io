@@ -766,4 +766,37 @@ TextSnake 将一个文本区域（黄色）表征为一系列有序而重叠的�
         <tag>Scene Text Detection</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ID-Reveal: Identity-aware DeepFake Video Detection</title>
+    <url>/2021/01/05/ID-Reveal-Identity-aware-DeepFake-Video-Detection/</url>
+    <content><![CDATA[<p>主要动机：现有的方法通常在特定伪造方法的数据集上进行训练，在未见过的伪造方法数据上泛化性较差。</p>
+<a id="more"></a>
+<p>核心贡献：如图1所示，论文展现了一种新的鉴伪任务场景，给定一个人物的多个参考视频，判断这个人物的新视频是否伪造。利用自监督学习范式，训练了一个 ID-Reveal 模型进行人脸视频鉴伪。</p>
+<div style="text-align: center">
+<img src="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210105151535.PNG"/>
+</div>
+<h3 id="id-reveal"><a class="markdownIt-Anchor" href="#id-reveal"></a> ID-Reveal</h3>
+<p>该方法先利用3DMM提取一个视频中的人脸特征，再使用一个时序ID网络提取一个128维身份编码，再计算与另一个视频中身份编码的相似性，超过一定阈值即判定为同一个人物。一个人物的伪造数据由3DMM生成网络合成，与时序ID网络进行对抗训练。</p>
+<div style="text-align: center">
+<img src="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210105151926.PNG"/>
+</div>
+<h3 id="my-review"><a class="markdownIt-Anchor" href="#my-review"></a> My Review</h3>
+<ul>
+<li>使用3DMM提取后的特征进行鉴伪，不会丢失很多纹理信息吗？而纹理信息是鉴伪任务的重要线索。也许正是这样做，才使得模型关注轮廓上的差异，在低质量数据集上表现更好。</li>
+<li>这种基于已知人物参考数据的鉴伪方法是一个值得探究研究点，符合实际应用场景。</li>
+</ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
+<li>[2020-12] ID-Reveal: Identity-aware DeepFake Video Detection <a href="https://arxiv.org/abs/2012.02512"><code>paper</code></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Media Forensics</category>
+        <category>Face Forgery Detection</category>
+      </categories>
+      <tags>
+        <tag>Face Forgery Detection</tag>
+      </tags>
+  </entry>
 </search>
