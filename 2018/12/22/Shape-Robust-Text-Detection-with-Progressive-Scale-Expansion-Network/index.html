@@ -120,31 +120,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -275,18 +275,19 @@
       
         <p>针对任意形状文字检测，论文提出Progressive Scale Expansion Network (PSENet)，通过预测不同尺寸的文字区域的 kernels，然后采用 Breadth-First-Search 的方法从最小尺寸的 kernel 进行逐渐扩张到最大尺寸的 kernel。</p>
 <a id="more"></a>
-
-<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>PSENet 使用 Resnet 作为 backbone，结合 FPN，将不同层次的特征上采样到同样大小，然后拼接起来，预测不同尺寸的 kernels。最后通过 Progressive Scale Expansion 算法去不断地扩大 kernel，从而得到每个文字块。</p>
+<h3 id="architecture"><a class="markdownIt-Anchor" href="#architecture"></a> Architecture</h3>
+<p>PSENet 使用 Resnet 作为 backbone，结合 FPN，将不同层次的特征上采样到同样大小，然后拼接起来，预测不同尺寸的 kernels。最后通过 Progressive Scale Expansion 算法去不断地扩大 kernel，从而得到每个文字块。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222155324.JPG"/><p>PSENet 整体结构</p></div>
-
-<h3 id="Progressive-Scale-Expansion-Algorithm"><a href="#Progressive-Scale-Expansion-Algorithm" class="headerlink" title="Progressive Scale Expansion Algorithm"></a>Progressive Scale Expansion Algorithm</h3><p>PSE 主要基于宽度优先搜索算法，先通过最小的 kernel 分割图，得到 connected components，此时，由于 kernel 较小，得到的是文本块的中心区域，能够将邻近的文本实例区分开，但是边界信息不准确。因此，将 CCs 中的元素压如队列，再依次和大尺寸的 kernel 分割结果合并。</p>
+<h3 id="progressive-scale-expansion-algorithm"><a class="markdownIt-Anchor" href="#progressive-scale-expansion-algorithm"></a> Progressive Scale Expansion Algorithm</h3>
+<p>PSE 主要基于宽度优先搜索算法，先通过最小的 kernel 分割图，得到 connected components，此时，由于 kernel 较小，得到的是文本块的中心区域，能够将邻近的文本实例区分开，但是边界信息不准确。因此，将 CCs 中的元素压如队列，再依次和大尺寸的 kernel 分割结果合并。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222162939.JPG"/></div>
-
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>基于分割的方法，对于邻近的文本实例不容易分开，逐渐扩充的想法，简单而有效。</li>
 <li>论文中生成 label 的方法可以参考借鉴。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2018] Shape Robust Text Detection with Progressive Scale Expansion Network <a target="_blank" rel="noopener" href="http://export.arxiv.org/abs/1806.02559"><code>paper</code></a></li>
 </ul>
 
@@ -395,7 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Architecture"><span class="nav-number">1.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Progressive-Scale-Expansion-Algorithm"><span class="nav-number">2.</span> <span class="nav-text">Progressive Scale Expansion Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">3.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">1.</span> <span class="nav-text"> Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#progressive-scale-expansion-algorithm"><span class="nav-number">2.</span> <span class="nav-text"> Progressive Scale Expansion Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">3.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -411,20 +412,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -434,7 +435,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 

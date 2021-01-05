@@ -120,31 +120,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -275,25 +275,27 @@
       
         <p>EAST 是一个简洁而高效的文字检测算法，避免了繁琐的后处理方法，直接用 FCN 进行像素级的预测和回归文字框。</p>
 <a id="more"></a>
-
-<h3 id="Arictecture"><a href="#Arictecture" class="headerlink" title="Arictecture"></a>Arictecture</h3><p>EAST 使用 PVANet，并借鉴 U-shape 的设计思想，融合高层和底层特征进行预测。Score map 的输出范围为[0,1]，并且代表着基于此像素点预测文本框的置信度。位置信息，可以选择 RBOX 和 QUAD 进行表示。后处理操作包括 Tresholding 和 NMS.</p>
+<h3 id="arictecture"><a class="markdownIt-Anchor" href="#arictecture"></a> Arictecture</h3>
+<p>EAST 使用 PVANet，并借鉴 U-shape 的设计思想，融合高层和底层特征进行预测。Score map 的输出范围为[0,1]，并且代表着基于此像素点预测文本框的置信度。位置信息，可以选择 RBOX 和 QUAD 进行表示。后处理操作包括 Tresholding 和 NMS.</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181219145347.JPG"/></div>
-
-<h3 id="Label-Generation"><a href="#Label-Generation" class="headerlink" title="Label Generation"></a>Label Generation</h3><div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181219155513.JPG"/></div>
-
+<h3 id="label-generation"><a class="markdownIt-Anchor" href="#label-generation"></a> Label Generation</h3>
+<div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181219155513.JPG"/></div>
 <p>Score map label 生成如（a）所示，黄色虚线框是人工标注框，绿色框由黄色虚线框边长缩小0.3倍相邻最短边形成的，标注结果如（b）所示。</p>
 <p>假设采用 RBOX 标注方式，先生成黄色虚线框的最小外接矩形框（红色），然后计算 score map 中的点分别到四条边的距离，以及红色矩形框的角度。</p>
-<h3 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h3><p>论文中，提到了 EAST 的两个缺点：</p>
+<h3 id="limitations"><a class="markdownIt-Anchor" href="#limitations"></a> Limitations</h3>
+<p>论文中，提到了 EAST 的两个缺点：</p>
 <ul>
 <li>受限于感受野的大小，不能够很好检测 long text；</li>
 <li>对于垂直文本的检测效果不好。</li>
 </ul>
 <p>另外，EAST 对于边界的回归也不是很准确。</p>
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>针对于感受野小的问题，可以尝试改变卷积核尺寸，宽高比，以及使用 ASPP 等技巧；</li>
 <li>对于边界回归不准，可以参考 AdvancedEAST[2]，也可以在训练 geometry 时直接计算点到边的相对距离，这样应该学到更准确的边界信息。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2017-CVPR] EAST: An Efficient and Accurate Scene Text Detector <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1704.03155"><code>paper</code></a> <a target="_blank" rel="noopener" href="https://github.com/argman/EAST"><code>code</code></a></li>
 <li>[2] <a target="_blank" rel="noopener" href="https://github.com/huoyijie/AdvancedEAST">AdvancedEAST</a></li>
 </ul>
@@ -403,7 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arictecture"><span class="nav-number">1.</span> <span class="nav-text">Arictecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Label-Generation"><span class="nav-number">2.</span> <span class="nav-text">Label Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Limitations"><span class="nav-number">3.</span> <span class="nav-text">Limitations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">4.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">5.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#arictecture"><span class="nav-number">1.</span> <span class="nav-text"> Arictecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#label-generation"><span class="nav-number">2.</span> <span class="nav-text"> Label Generation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limitations"><span class="nav-number">3.</span> <span class="nav-text"> Limitations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">4.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">5.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -419,20 +421,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -442,7 +444,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 

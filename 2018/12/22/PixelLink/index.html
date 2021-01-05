@@ -119,31 +119,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -274,21 +274,23 @@
       
         <p>PixelLink 使用实例分割（Instance Segmentation）来实现文本检测，首先分割出文本区域，然后直接找出文本框，完全摒弃位置回归（Location Regression）的思想。</p>
 <a id="more"></a>
-
-<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>PixelLink 进行两种像素级别的预测：text/non-text 和 link 预测。标注时，在文本实例内部像素标为 positive，其余的标为 negative。Link 启发于 SegLink，但有所不同，每个像素点有 8 个邻居。给定一个像素点以及它的一个邻居点，如果它们同属于一个文本实例，则它们之间的 link 为 positive。</p>
+<h3 id="architecture"><a class="markdownIt-Anchor" href="#architecture"></a> Architecture</h3>
+<p>PixelLink 进行两种像素级别的预测：text/non-text 和 link 预测。标注时，在文本实例内部像素标为 positive，其余的标为 negative。Link 启发于 SegLink，但有所不同，每个像素点有 8 个邻居。给定一个像素点以及它的一个邻居点，如果它们同属于一个文本实例，则它们之间的 link 为 positive。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181222170904.JPG"/><p>Figure 1. Structure of PixelLink+VGG16 2s</p></div>
-
 <p>PixelLink 将 VGG-16 结构作为基础网络，将后两层全连接转化为卷积，然后仿照类似 FPN 的结构，融合多层语义信息，最后得到原图二分之一大小的特征图。对于 link 的输出 feature map，其排列的顺序为：top-left，top，top-rignt，left，right，bottom-left，bottom，bottom-right。总的输出维度为 18 。</p>
 <p>最后得到 pixels 和 links，然后根据link positive 将pixel positive 进行连接，得到 Cs(conected compoents)集合，集合中的每个元素代表的就是文本实例。两个 pixel 需要连接的前提条件：two link中至少有一个link positive．连接的规则采用的是 Disjoint set data structure (并查集)的方法。</p>
 <p>基于上述 CCs 集合，直接掉调用 opencv 的 minAreaRect 提取带方向信息的矩形框。在此之后，还要根据在训练集上统计的信息，进行过滤，去掉噪声。</p>
-<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>由于文本行的长宽比变化范围广泛，若在计算loss的时候，对所有的 pixel positive 给予相同的权重，这对小面积的文本行是非常不公平的，针对上述问题，论文中提出了Instance-Balanced Cross-Entropy Loss。</p>
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h3 id="loss"><a class="markdownIt-Anchor" href="#loss"></a> Loss</h3>
+<p>由于文本行的长宽比变化范围广泛，若在计算loss的时候，对所有的 pixel positive 给予相同的权重，这对小面积的文本行是非常不公平的，针对上述问题，论文中提出了Instance-Balanced Cross-Entropy Loss。</p>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>与CTPN，EAST，SegLink相比，PixelLink 对感受野的要求更少，因为每个神经元值只负责预测自己及其邻域内的状态。但是，会不会由于缺乏上下文信息，导致出现假阳性？</li>
 <li>PixelLink 不需要用 imagenet 数据集训练的权重进行初始化。</li>
 <li>与 SegLink 一样，不能检测很大的文本，这是因为link主要是用于连接相邻的segments，而不能用于检测相距较远的文本行。</li>
 <li>后处理部分，严重依赖对数据集统计信息，对实验效果影响占比很大。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2018-AAAI] PixelLink: Detecting Scene Text via Instance Segmentation <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1801.01315"><code>paper</code></a> <a target="_blank" rel="noopener" href="https://github.com/ZJULearning/pixel_link"><code>code</code></a></li>
 </ul>
 
@@ -397,7 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Architecture"><span class="nav-number">1.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss"><span class="nav-number">2.</span> <span class="nav-text">Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">3.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">1.</span> <span class="nav-text"> Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loss"><span class="nav-number">2.</span> <span class="nav-text"> Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">3.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -413,20 +415,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -436,7 +438,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 

@@ -120,31 +120,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -275,21 +275,24 @@
       
         <p>文字区域具有很强的边缘特征，因此论文修改 HED 对图像进行密集预测，输出 text region map, charcter map 以及 linking orientation map，最后融合三个 feature map 生成文本框。</p>
 <a id="more"></a>
-
-<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p>场景文字检测中，简单进行 text/non-text 分割是不够充分的，有许多文本行距离很近，不能够完全的分开。因此，作者引入更多的监督信息，如字符的位置，大小以及连接方向，最后通过图分割（graph partition）得到文本线（text lines）。</p>
-<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><h4 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h4><p>通过模型得到 text region map，character map，linking orientation map。</p>
+<h3 id="motivation"><a class="markdownIt-Anchor" href="#motivation"></a> Motivation</h3>
+<p>场景文字检测中，简单进行 text/non-text 分割是不够充分的，有许多文本行距离很近，不能够完全的分开。因此，作者引入更多的监督信息，如字符的位置，大小以及连接方向，最后通过图分割（graph partition）得到文本线（text lines）。</p>
+<h3 id="method"><a class="markdownIt-Anchor" href="#method"></a> Method</h3>
+<h4 id="pipeline"><a class="markdownIt-Anchor" href="#pipeline"></a> Pipeline</h4>
+<p>通过模型得到 text region map，character map，linking orientation map。</p>
 <div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd6634207b33.jpg"/><p>Figure 1. Pipeline of the proposed algorithm. (a) Original image. (b) Prediction maps. From left to right: text region map, character map and linking orientation map.  (c) Detections.</p>
 </div>
-
 <p>每个 text region 上的 character 作为顶点，character 之间的相似性作为边，构建图模型，用最大生成求最小割，得到每个文本线。相似性包括空间相似性和方向相似性。空间相似性要求同一个文本实例间的 character 距离相近。方向相似性要求每两个 character 形成的直线方向与 linking orientation map 预测的方向接近。最后，将五个层的预测图经过 1*1 的卷积得到 3 个 maps，跟 ground Truth 计算损失值。</p>
-<h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd664df87c6f.jpg"/><p>Figure 2. Network architecture of the proposed algorithm</p></div>
-
-<p>网络的 Stage1<del>Stage 5 是 VGG16 的前五层，每个 stage 接一个 side-output 输出 3 个 response map，将 stage2</del>5 后面接 deconvolution 得到原图大小尺寸的预测图。</p>
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h4 id="architecture"><a class="markdownIt-Anchor" href="#architecture"></a> Architecture</h4>
+<div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd664df87c6f.jpg"/><p>Figure 2. Network architecture of the proposed algorithm</p></div>
+<p>网络的 Stage1~Stage 5 是 VGG16 的前五层，每个 stage 接一个 side-output 输出 3 个 response map，将 stage2~5 后面接 deconvolution 得到原图大小尺寸的预测图。</p>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>论文提出的后处理的方法主要是为了得到文本线，文本线也是可以直接预测的，再结合一些方法，就不用如此复杂的后处理了。</li>
 <li>论文中提到下一步可能会预测 character shapes 的二值掩码，能够有利于后续的识别步骤。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2016] Scene Text Detection via Holistic, Multi-Channel Prediction <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.09002"><code>paper</code></a></li>
 </ul>
 
@@ -398,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method"><span class="nav-number">2.</span> <span class="nav-text">Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pipeline"><span class="nav-number">2.1.</span> <span class="nav-text">Pipeline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architecture"><span class="nav-number">2.2.</span> <span class="nav-text">Architecture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">3.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#motivation"><span class="nav-number">1.</span> <span class="nav-text"> Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#method"><span class="nav-number">2.</span> <span class="nav-text"> Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pipeline"><span class="nav-number">2.1.</span> <span class="nav-text"> Pipeline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#architecture"><span class="nav-number">2.2.</span> <span class="nav-text"> Architecture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">3.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,20 +417,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -437,7 +440,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 

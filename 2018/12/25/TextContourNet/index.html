@@ -122,31 +122,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -277,27 +277,26 @@
       
         <p>TextContourNet 利用实例级别的场景文字的边界轮廓信息，帮助提高文字检测器的能力。</p>
 <a id="more"></a>
-
-<h3 id="Text-Contour"><a href="#Text-Contour" class="headerlink" title="Text Contour"></a>Text Contour</h3><p>这里的文本轮廓不是语义级别的，是针对每个文本实例。轮廓可以由边界框来生成，论文中使用一种平滑的轮廓信息来进行训练，其生成公式如下所示，其中 $S_{contour}$ 表示边界框上的像素点集合。</p>
+<h3 id="text-contour"><a class="markdownIt-Anchor" href="#text-contour"></a> Text Contour</h3>
+<p>这里的文本轮廓不是语义级别的，是针对每个文本实例。轮廓可以由边界框来生成，论文中使用一种平滑的轮廓信息来进行训练，其生成公式如下所示，其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mrow><mi>c</mi><mi>o</mi><mi>n</mi><mi>t</mi><mi>o</mi><mi>u</mi><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">S_{contour}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight">t</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 表示边界框上的像素点集合。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181225094959.JPG"/></div>
-
-<h3 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h3><p>论文主要想论证，引入轮廓信息能够帮助常规的文本检测器提高检测效果。选用 EAST 模型作为基础文本检测器。并设计了几种不同的引入方法。</p>
+<h3 id="architecture"><a class="markdownIt-Anchor" href="#architecture"></a> Architecture</h3>
+<p>论文主要想论证，引入轮廓信息能够帮助常规的文本检测器提高检测效果。选用 EAST 模型作为基础文本检测器。并设计了几种不同的引入方法。</p>
 <p>Auxiliary TextContourNet，将 contour task 作为 auxiliary loss。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181225095618.JPG"/></div>
-
 <p>Cascade TextContourNet 设计两种方案。第一种，两个分支不共享 encoder 模块，将得到的轮廓结果和原图拼接在一起，再进行检测。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181225100159.JPG"/></div>
-
 <p>第二种就是共享 encoder 模块，将得到的轮廓结果和检测分支的特征拼接在一起，再进行检测。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181225100656.JPG"/></div>
-
 <p>最后的实验结果表明，Cascade 模式下共享 encoder 的效果是最好的，可能的原因是在两种损失的联合下，encoder 部分训练得更好，可以再补充一个实验证明一下，即共享 encoder 模块，将得到的轮廓结果和原图拼接，进行检测。</p>
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>论文中提到的 Text Contour 其实和 Text Border 的概念是类似，早有工作将 border 信息引入场景文字检测中，确实发现有效果。</li>
-<li> contour ground truth 采用平滑的方式，想法不错。</li>
-<li> 利用分割得到一些辅助信息，然后和检测分支拼接，帮助提高检测效果。有许多工作进行尝试，如文献[3]中，通过分割得到 text/non-text map，来消除背景噪声。文献[2]提取 text center line 再和原图拼接，进行检测，不过它是 crop 每个 text regions 进行的，比较繁琐。</li>
+<li>contour ground truth 采用平滑的方式，想法不错。</li>
+<li>利用分割得到一些辅助信息，然后和检测分支拼接，帮助提高检测效果。有许多工作进行尝试，如文献[3]中，通过分割得到 text/non-text map，来消除背景噪声。文献[2]提取 text center line 再和原图拼接，进行检测，不过它是 crop 每个 text regions 进行的，比较繁琐。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2018]TextContourNet: a Flexible and Effective Framework for Improving Scene Text Detection Architecture with a Multi-task Cascade <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1809.03050"><code>paper</code></a></li>
 <li>[2] [2017-CVPR] Multi-scale FCN with Cascaded Instance Aware Segmentation for Arbitrary Oriented Word Spotting In The Wild <a target="_blank" rel="noopener" href="http://openaccess.thecvf.com/content_cvpr_2017/papers/He_Multi-Scale_FCN_With_CVPR_2017_paper.pdf"><code>paper</code></a></li>
 <li>[3] [2017-ICCV] Single shot text detector with regional attention <a target="_blank" rel="noopener" href="http://openaccess.thecvf.com/content_ICCV_2017/papers/He_Single_Shot_Text_ICCV_2017_paper.pdf"><code>paper</code></a> <a target="_blank" rel="noopener" href="https://github.com/HotaekHan/SSTDNet"><code>code</code></a></li>
@@ -408,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Text-Contour"><span class="nav-number">1.</span> <span class="nav-text">Text Contour</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Architecture"><span class="nav-number">2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">3.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#text-contour"><span class="nav-number">1.</span> <span class="nav-text"> Text Contour</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#architecture"><span class="nav-number">2.</span> <span class="nav-text"> Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">3.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -424,20 +423,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -447,7 +446,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 

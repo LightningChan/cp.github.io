@@ -119,31 +119,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -275,22 +275,30 @@
         <p>检测单个字符容易受背景干扰，造成漏检或误检的情况，而检测文本框相对于单个字符来说，和背景的区分行更强。因此，能不能结合局部信息（单个字符）和上下文信息（文本块）结合起来，使得检测更加鲁棒性。</p>
 <p>FCN 在 2015 年被提出去进行像素分割，那么自然地想到能够标定每个像素属于文字的概率（salient map），也可以得到每个像素是字符中心的概率（centroid map）。</p>
 <a id="more"></a>
-
-<h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><p>算法流程如下图所示，主要分为：Text Block Detection, Text Line Generation 和 Text Line Candidates Classification。</p>
+<h3 id="methods"><a class="markdownIt-Anchor" href="#methods"></a> Methods</h3>
+<p>算法流程如下图所示，主要分为：Text Block Detection, Text Line Generation 和 Text Line Candidates Classification。</p>
 <div style="text-align: center"><img src="https://raw.githubusercontent.com/LightningChan/pictures/master/2018/20181218152913.JPG"/></div>
-
-<h4 id="Text-Block-Detection"><a href="#Text-Block-Detection" class="headerlink" title="Text Block Detection"></a>Text Block Detection</h4><p>使用 Text-Block FCN 得到 salient map，然后对其进行过滤，聚类得到文本块。Text-Block FCN 的结构是在 VGG16 的基础上修改的，融合前几层的特征进行预测。</p>
-<h4 id="Text-Line-Generation"><a href="#Text-Line-Generation" class="headerlink" title="Text Line Generation"></a>Text Line Generation</h4><p>步骤大体如下：</p>
+<h4 id="text-block-detection"><a class="markdownIt-Anchor" href="#text-block-detection"></a> Text Block Detection</h4>
+<p>使用 Text-Block FCN 得到 salient map，然后对其进行过滤，聚类得到文本块。Text-Block FCN 的结构是在 VGG16 的基础上修改的，融合前几层的特征进行预测。</p>
+<h4 id="text-line-generation"><a class="markdownIt-Anchor" href="#text-line-generation"></a> Text Line Generation</h4>
+<p>步骤大体如下：</p>
 <ul>
 <li>Character Components Extraction：使用 MSER 方法提取字符候选区域，然后利用候选区域的面积和长宽比过滤噪声。</li>
-<li>Orientation Estimation：这里假设同一个块中的所有文本线方向是一致的，文本线是近直线的。可以通过寻找最优的垂直坐标偏移 $h$ 和角度 $\theta$ 确定一条一线，使得该直线穿过字符数最多。公式如下，其中 $\Phi$ 是穿过字符的个数。<br>$$<br>\theta_{r}=\arg \max_{\theta} \max_{h} \Phi(\theta ,h)<br>$$</li>
+<li>Orientation Estimation：这里假设同一个块中的所有文本线方向是一致的，文本线是近直线的。可以通过寻找最优的垂直坐标偏移 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span></span></span></span> 和角度 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span></span> 确定一条一线，使得该直线穿过字符数最多。公式如下，其中 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Φ</mi></mrow><annotation encoding="application/x-tex">\Phi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Φ</span></span></span></span> 是穿过字符的个数。</li>
+</ul>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>θ</mi><mi>r</mi></msub><mo>=</mo><mi>arg</mi><mo>⁡</mo><munder><mo><mi>max</mi><mo>⁡</mo></mo><mi>θ</mi></munder><munder><mo><mi>max</mi><mo>⁡</mo></mo><mi>h</mi></munder><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>θ</mi><mo separator="true">,</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\theta_{r}=\arg \max_{\theta} \max_{h} \Phi(\theta ,h)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.502108em;vertical-align:-0.752108em;"></span><span class="mop">ar<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.43055999999999994em;"><span style="top:-2.047892em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.752108em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.43055999999999994em;"><span style="top:-2.047892em;margin-left:0em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span style="top:-2.7em;"><span class="pstrut" style="height:2.7em;"></span><span><span class="mop">max</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.752108em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span></span></p>
+<ul>
 <li>Text Line Candidate Generation: 对每个块里的所有字符进行聚类，然后为每个类生成一个 bounding box。</li>
 </ul>
-<h4 id="Text-Line-Classification"><a href="#Text-Line-Classification" class="headerlink" title="Text Line Classification"></a>Text Line Classification</h4><p>通过 Character-Centroid FCN 获得每条文本线中的所有可能存在的字符的中心。然后通过 Intensity criterion 和 Geometric criterion 过滤非文本线。</p>
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h4 id="text-line-classification"><a class="markdownIt-Anchor" href="#text-line-classification"></a> Text Line Classification</h4>
+<p>通过 Character-Centroid FCN 获得每条文本线中的所有可能存在的字符的中心。然后通过 Intensity criterion 和 Geometric criterion 过滤非文本线。</p>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>这是较早将分割的思想引入到场景文字检测中，但还是用 MSER 方法提取字符，然后聚类，处理过程繁琐，text blocks 只是用来过滤 false positive 的情况。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2016-CVPR] Multi-Oriented Text Detection with Fully Convolutional Networks <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1604.04018"><code>paper</code></a></li>
 </ul>
 
@@ -399,7 +407,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Methods"><span class="nav-number">1.</span> <span class="nav-text">Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-Block-Detection"><span class="nav-number">1.1.</span> <span class="nav-text">Text Block Detection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-Line-Generation"><span class="nav-number">1.2.</span> <span class="nav-text">Text Line Generation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Text-Line-Classification"><span class="nav-number">1.3.</span> <span class="nav-text">Text Line Classification</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">2.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#methods"><span class="nav-number">1.</span> <span class="nav-text"> Methods</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#text-block-detection"><span class="nav-number">1.1.</span> <span class="nav-text"> Text Block Detection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#text-line-generation"><span class="nav-number">1.2.</span> <span class="nav-text"> Text Line Generation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#text-line-classification"><span class="nav-number">1.3.</span> <span class="nav-text"> Text Line Classification</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">2.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">3.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -415,20 +423,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -438,7 +446,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 

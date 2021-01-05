@@ -121,31 +121,31 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-about">
 
-    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+    <a href="/about/" rel="section">关于</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -276,8 +276,8 @@
       
         <p>论文提出了基于分割的文本行级别的检测算法，通过引入 text border，再经过极少的后处理操作就能得到文本框。</p>
 <a id="more"></a>
-
-<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p>根据检测单元的不同，相关算法可以分为：</p>
+<h3 id="motivation"><a class="markdownIt-Anchor" href="#motivation"></a> Motivation</h3>
+<p>根据检测单元的不同，相关算法可以分为：</p>
 <ul>
 <li>component detection：检测字符的一部分，再通过后处理连成检测框。</li>
 <li>character detection：字符是单词的最小组成单元。</li>
@@ -287,21 +287,22 @@
 </ul>
 <p>其中，component/character 检测可划分为 bottom-up 的方法，而 region 检测为 up-down 的方法。通常，word/line 层次的检测框是想要的最终的结果，那么，直接把候选框就定为 word/line 级别则更方便。另外，现在许多基于分割的方法，后处理的操作过于复杂，且不是端到端的训练。因此，论文对于每个像素，进行 text，non-text 和 border 预测，最后通过简单的处理操作就能得到文本框。</p>
 <div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd6706cd4638.jpg"/></div>
-
-<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><h4 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h4><p>算法采用自行设计的 FCN，最后输出 text map, non-text map 和 border map。</p>
+<h3 id="method"><a class="markdownIt-Anchor" href="#method"></a> Method</h3>
+<h4 id="architecture"><a class="markdownIt-Anchor" href="#architecture"></a> Architecture</h4>
+<p>算法采用自行设计的 FCN，最后输出 text map, non-text map 和 border map。</p>
 <div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd670e55fa95.jpg"/><p>Figure 2. Fully convolutional networks used in the proposed method. Left: single resolution FCN. Right: multi-resolution FCN.</p></div>
 #### Decoder
-
 <p>得到最终的概率图后，先根据 text/non-text 得到 connected components，然后使用训练时 border c 的参数放大，得到检测框，具体步骤如下：</p>
 <div style="text-align: center"><img src="https://i.loli.net/2018/10/29/5bd6713b2c0a5.jpg"/></div>
-
-<h3 id="My-Thoughts"><a href="#My-Thoughts" class="headerlink" title="My Thoughts"></a>My Thoughts</h3><ul>
+<h3 id="my-thoughts"><a class="markdownIt-Anchor" href="#my-thoughts"></a> My Thoughts</h3>
+<ul>
 <li>论文发现仅依靠 text region 是不足以区分邻近的实例。指出了两个重要问题：why are line-level annotations not sufficient？what can be done to resolve this problem？许多基于分割的方法，都在分析解决这两个问题。</li>
 <li>border 确实是个好想法，能把帮助分开不同文本实例，而且后处理操作也简单，同样有篇利用 border 信息的论文[2]。</li>
 <li>模型的训练数据是作者们提出的 PPT dataset，但是在 ICDAR 数据上进行训练时，没有讲清楚如何得到 border 标注信息。</li>
 <li>另外，需要注意的是，论文里的实验都是基于文本行级别进行的。</li>
 </ul>
-<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
 <li>[1] [2017-ICCV] Self-organized Text Detection with Minimal Post-processing via Border Learning <a target="_blank" rel="noopener" href="http://openaccess.thecvf.com/content_ICCV_2017/papers/Wu_Self-Organized_Text_Detection_ICCV_2017_paper.pdf"><code>paper</code></a> <a target="_blank" rel="noopener" href="https://github.com/isi-vista/textDetectionWithScriptID"><code>code</code></a></li>
 <li>[2] [2017-ICIP] WordFence: Text Detection in Natural Images with Border Awareness <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1705.05483"><code>paper</code></a></li>
 </ul>
@@ -411,7 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method"><span class="nav-number">2.</span> <span class="nav-text">Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Architecture"><span class="nav-number">2.1.</span> <span class="nav-text">Architecture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#My-Thoughts"><span class="nav-number">3.</span> <span class="nav-text">My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#motivation"><span class="nav-number">1.</span> <span class="nav-text"> Motivation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#method"><span class="nav-number">2.</span> <span class="nav-text"> Method</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#architecture"><span class="nav-number">2.1.</span> <span class="nav-text"> Architecture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-thoughts"><span class="nav-number">3.</span> <span class="nav-text"> My Thoughts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -427,20 +428,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -450,7 +451,7 @@
         <a href="https://github.com/LightningChan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LightningChan" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class=" fa-fw"></i>知乎</a>
+        <a href="https://www.zhihu.com/people/chenpengpro" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;chenpengpro" rel="noopener" target="_blank"><i class="book fa-fw"></i>知乎</a>
       </span>
   </div>
 
