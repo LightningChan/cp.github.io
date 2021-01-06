@@ -799,4 +799,70 @@ TextSnake 将一个文本区域（黄色）表征为一系列有序而重叠的�
         <tag>Face Forgery Detection</tag>
       </tags>
   </entry>
+  <entry>
+    <title>熵</title>
+    <url>/2021/01/06/%E7%86%B5/</url>
+    <content><![CDATA[<p>熵的物理意义是体系混乱程度的度量。熵可以用来表示任何一种能量在空间中分布的均匀程度，能量分布得越均匀，熵就越大。<br><a id="more"></a></p>
+<h3 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h3><p>香农对信息的定义：信息是用来消除随机不确定性的东西。</p>
+<p>1948年，香农将统计物理中熵的概念引入到信道通信的过程中，定义为信息熵。信息熵是接受的每条消息中包含的信息的平均值，度量信息的不确定性，熵越大，信源的分布越随机。数学上，信息熵其实是信息量的期望。</p>
+<script type="math/tex; mode=display">
+H(X) = - \sum_{i=1}^{m} p_i(x) \log p_i(x)</script><p>熵的单位为比特(bit)。</p>
+<p>信息熵有三条性质：</p>
+<ul>
+<li>单调性，即发生概率越高的事件，其所携带的信息熵越低；</li>
+<li>非负性，即信息熵不能为负，因此在 $\log$ 前添加负号；</li>
+<li>累加性，即多个随机事件同时发生存在的总不确定性的量度可以表示为各事件不确定的量度的和。</li>
+</ul>
+<h3 id="联合熵"><a href="#联合熵" class="headerlink" title="联合熵"></a>联合熵</h3><p>联合熵(Joint Entropy)就是度量一个联合分布的随机系统的不确定度。分布为$p(x,y)$的一对随机变量，其联合熵的定义为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+H(X,Y) &= - \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x,y) \log p(x,y) \\
+&= - \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log p(x)P(y|x) \\
+&= - \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log p(x)- \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log P(y|x) \\
+&= - \sum_{x \in \mathcal{X}} p(x) \log p(x) -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log P(y|x) \\
+&= H(X) + H(Y|X)
+\end{aligned}</script><p>注：<script type="math/tex">- \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log p(x)</script> 通过边缘化 $y$ 得到 $- \sum_{x \in \mathcal{X}} p(x) \log p(x)$</p>
+<h3 id="条件熵"><a href="#条件熵" class="headerlink" title="条件熵"></a>条件熵</h3><p>条件熵(Conditional Entropy)$H(Y|X)$，表示在已知随机变量$X$的条件下随机变量$Y$的不确定性，其定义为：</p>
+<script type="math/tex; mode=display">
+H(Y|X)= -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log P(y|x)</script><h3 id="互信息"><a href="#互信息" class="headerlink" title="互信息"></a>互信息</h3><p>对于两个随机变量 $X$ 和 $Y$, 如果其联合分布为$p(x,y)$，边缘分布为$p(x),p(y)$，其互信息可以定义为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+I(X,Y) &=H(X)-H(X|Y) \\
+&= - \sum_{x \in \mathcal{X}} p(x) \log p(x) + \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log P(x|y) \\
+&=  - \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log p(x) + \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}}  p(x,y) \log P(x|y) \\
+&= \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x,y) \log \frac{p(x|y)}{p(x)} \\
+&= \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x,y) \log \frac{p(x,y)}{p(x)p(y)}
+\end{aligned}</script><p>因此：$H(X)-H(X|Y)=H(Y)-H(Y|X)$。</p>
+<p>互信息$I(X,Y)$表示为知道事实$Y$后，原来信息量减少了多少。</p>
+<h3 id="相对熵"><a href="#相对熵" class="headerlink" title="相对熵"></a>相对熵</h3><p>相对熵(Relative Entropy)又称为KL 散度(Kullback-Leibler divergence), 是两个概率分布 P 和 Q 差别的非对称性的度量。假设 P 为观察得到的概率分布，Q 为另一种概率分布来近似 P，它们之间的 KL 散度为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+KL(P || Q) &= \sum_{i=1}^{N} P(x_i) \log \frac{P(x_i)}{Q(x_i)} \\
+&= \sum_{i=1}^{N} P(x_i)(\log P(x_i) - \log Q(x_i)) \\
+&= \sum_{i=1}^{N} P(x_i)\log P(x_i)- \sum_{i=1}^{N} P(x_i)\log Q(x_i) \\
+&= -H(P) + H_P(Q)
+\end{aligned}</script><p>$H_P(Q)$表示在P分布下，使用Q进行编码需要的比特，$H(P)$表示对分布P所需要的最小比特。因此，$KL(P || Q)$ 的物理意义是使用Q分布进行编码相对于分布P进行编码所多出来的比特。需要注意的 KL 散度是非对称的，$KL(P||Q)  \neq  KL(Q||P)$。</p>
+<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>交叉熵(Cross Entropy)的公式为：</p>
+<script type="math/tex; mode=display">
+H(P,Q)=-\sum_{i=1}^nP(x_i)log(Q(x_i))</script><p>即为相对熵中的$H_P(Q)$。相对熵=交叉熵-信息熵。在机器学习，需要评估真实分布和预测分布之间的差距，可以使用相对熵进行度量差异，而相对熵中的$H(P)$是不变的，因此，一般直接使用交叉熵衡量两个分布的差异以评估模型。</p>
+<h3 id="最大熵原理"><a href="#最大熵原理" class="headerlink" title="最大熵原理"></a>最大熵原理</h3><p>最大熵原(Maximum entropy principle)，认为学习概率模型时，在所有可能的概率模型中，熵最大的模型是最好的模型。</p>
+<p>换句话，最大熵原理遵循：</p>
+<ul>
+<li>满足已知信息（约束条件）</li>
+<li>不做任何未知假设（剩下的等概率）</li>
+</ul>
+<p>有点像俗语“不要把鸡蛋放在同一个篮子里”。</p>
+<h3 id="最小熵原理"><a href="#最小熵原理" class="headerlink" title="最小熵原理"></a>最小熵原理</h3><p>最小熵原理是一个无监督学习的原理，“熵”就是学习成本，而降低学习成本是我们的不懈追求，所以通过“最小化学习成本”就能够无监督地学习出很多符合我们认知的结果，这就是最小熵原理的基本理念。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>信息，熵，联合熵 <a href="https://www.cnblogs.com/wqbin/p/12752610.html"><code>page</code></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Maths in Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>Maths</tag>
+      </tags>
+  </entry>
 </search>
