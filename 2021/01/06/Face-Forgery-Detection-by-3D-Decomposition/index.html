@@ -20,17 +20,23 @@
     var CONFIG = {"hostname":"chenpeng.online","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Think Different!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈先森的搬砖台">
-<meta property="og:url" content="http://chenpeng.online/archives/2018/12/index.html">
+  <meta name="description" content="自动化所雷震老师团队的工作，主要是引入人脸的3D重建中的信息辅助人脸鉴伪。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Face Forgery Detection by 3D Decomposition">
+<meta property="og:url" content="http://chenpeng.online/2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/index.html">
 <meta property="og:site_name" content="陈先森的搬砖台">
-<meta property="og:description" content="Think Different!">
+<meta property="og:description" content="自动化所雷震老师团队的工作，主要是引入人脸的3D重建中的信息辅助人脸鉴伪。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210106193920.PNG">
+<meta property="og:image" content="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210106194149.PNG">
+<meta property="article:published_time" content="2021-01-06T12:15:35.000Z">
+<meta property="article:modified_time" content="2021-01-06T12:16:17.903Z">
 <meta property="article:author" content="陈鹏">
+<meta property="article:tag" content="Face Forgery Detection">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210106193920.PNG">
 
-<link rel="canonical" href="http://chenpeng.online/archives/2018/12/">
+<link rel="canonical" href="http://chenpeng.online/2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/">
 
 
 <script id="page-configurations">
@@ -38,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | 陈先森的搬砖台</title>
+  <title>Face Forgery Detection by 3D Decomposition | 陈先森的搬砖台</title>
   
 
 
@@ -185,276 +191,168 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chenpeng.online/2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="陈鹏">
+      <meta itemprop="description" content="Think Different!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈先森的搬砖台">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Face Forgery Detection by 3D Decomposition
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-06 20:15:35 / 修改时间：20:16:17" itemprop="dateCreated datePublished" datetime="2021-01-06T20:15:35+08:00">2021-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%AF%E4%B8%9A%E4%B8%93%E6%94%BB/" itemprop="url" rel="index"><span itemprop="name">术业专攻</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%AF%E4%B8%9A%E4%B8%93%E6%94%BB/Media-Forensics/" itemprop="url" rel="index"><span itemprop="name">Media Forensics</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%AF%E4%B8%9A%E4%B8%93%E6%94%BB/Media-Forensics/Face-Forgery-Detection/" itemprop="url" rel="index"><span itemprop="name">Face Forgery Detection</span></a>
+                </span>
+            </span>
+
+          
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 18 篇日志。 继续努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2018</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-25T16:55:26+08:00"
-              content="2018-12-25">
-          12-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/25/Mask-TextSpotter/" itemprop="url">
-            <span itemprop="name">Mask TextSpotter</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-25T10:47:01+08:00"
-              content="2018-12-25">
-          12-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/25/TextContourNet/" itemprop="url">
-            <span itemprop="name">TextContourNet</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-22T21:07:21+08:00"
-              content="2018-12-22">
-          12-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/22/TextSnake/" itemprop="url">
-            <span itemprop="name">TextSnake</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-22T17:11:55+08:00"
-              content="2018-12-22">
-          12-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/22/Shape-Robust-Text-Detection-with-Progressive-Scale-Expansion-Network/" itemprop="url">
-            <span itemprop="name">Shape Robust Text Detection with Progressive Scale Expansion Network</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-22T17:10:24+08:00"
-              content="2018-12-22">
-          12-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/22/PixelLink/" itemprop="url">
-            <span itemprop="name">PixelLink</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-22T11:58:11+08:00"
-              content="2018-12-22">
-          12-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/22/Self-organized-Text-Detection-with-Minimal-Post-processing-via-Border-Learning/" itemprop="url">
-            <span itemprop="name">Self-organized Text Detection with Minimal Post-processing via Border Learning</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-22T10:31:07+08:00"
-              content="2018-12-22">
-          12-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/22/Multi-scale-FCN-with-Cascaded-Instance-Aware-Segmentation-for-Arbitrary-Oriented-Word-Spotting-In-The-Wild/" itemprop="url">
-            <span itemprop="name">Multi-scale FCN with Cascaded Instance Aware Segmentation for Arbitrary Oriented Word Spotting In The Wild</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-19T17:29:23+08:00"
-              content="2018-12-19">
-          12-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/19/EAST/" itemprop="url">
-            <span itemprop="name">EAST</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-18T23:16:34+08:00"
-              content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/18/Scene-Text-Detection-via-Holistic-Multi-Channel-Prediction/" itemprop="url">
-            <span itemprop="name">Scene Text Detection via Holistic, Multi-Channel Prediction</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-18T17:12:19+08:00"
-              content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/18/Accurate-text-localization-in-natural-image-with-cascaded-convolutional-text-network/" itemprop="url">
-            <span itemprop="name">Accurate text localization in natural image with cascaded convolutional text network</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-18T16:23:05+08:00"
-              content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/18/Multi-Oriented-Text-Detection-with-Fully-Convolutional-Networks/" itemprop="url">
-            <span itemprop="name">Multi-Oriented Text Detection with Fully Convolutional Networks</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-12-18T09:04:20+08:00"
-              content="2018-12-18">
-          12-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/12/18/Scene-Text-Detection-and-Recognition-Paper-List/" itemprop="url">
-            <span itemprop="name">Scene Text Detection and Recognition Paper List</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>自动化所雷震老师团队的工作，主要是引入人脸的3D重建中的信息辅助人脸鉴伪。</p>
+<a id="more"></a>
+<p>核心动机：Introduction 介绍了一堆，但没有get到点，应该是说光照信息和纹理信息对人脸有一定的帮助，所以就这么做了。</p>
+<p>主要贡献：1）用 3DFFA 对人脸进行分解，提取 direct light 和 identity texture 信息，如图1所示；2）提出一个双流模型，同时输入RGB空间和前面提取的信息进行鉴伪。</p>
+<div style="text-align: center">
+<img src="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210106193920.PNG"/>
+</div>
+<h3 id="双流鉴伪模型"><a class="markdownIt-Anchor" href="#双流鉴伪模型"></a> 双流鉴伪模型</h3>
+<p>双流鉴伪模型的设计很基本，中间加了个注意力层，分别有三种融合方式：Score，Feature 和 Halfway 融合。</p>
+<div style="text-align: center">
+<img src="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210106194149.PNG"/>
+</div>
+<h3 id="实验"><a class="markdownIt-Anchor" href="#实验"></a> 实验</h3>
+<ul>
+<li>表1实验各种解构后的特征组合对鉴伪的效果；</li>
+<li>表2证明了双流模型的有效性；</li>
+<li>表3做了注意力机制的消融实验；</li>
+<li>表4是解构特征的一些正则操作的消融实验；</li>
+<li>表5,6是和其他方法的比较，比较困惑的是，论文中的其他方法的数据应该是自己跑的，但是没有详细说是怎么做的，说服力有点不够。</li>
+</ul>
+<h3 id="my-review"><a class="markdownIt-Anchor" href="#my-review"></a> My Review</h3>
+<ul>
+<li>和其他方法的比较不能够令人信服，需要进一步联系作者了解一下；</li>
+<li>测试时，对于有些不能重构的人脸是如何处理的？</li>
+</ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
+<li>[2020-11] Face Forgery Detection by 3D Decomposition <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2011.09737"><code>paper</code></a></li>
+</ul>
 
     </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="陈鹏 微信支付">
+        <p>微信支付</p>
+      </div>
+
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Face-Forgery-Detection/" rel="tag"><i class="fa fa-tag"></i> Face Forgery Detection</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/06/%E7%86%B5/" rel="prev" title="熵">
+      <i class="fa fa-chevron-left"></i> 熵
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -501,6 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%B5%81%E9%89%B4%E4%BC%AA%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text"> 双流鉴伪模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C"><span class="nav-number">2.</span> <span class="nav-text"> 实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#my-review"><span class="nav-number">3.</span> <span class="nav-text"> My Review</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text"> References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -637,6 +536,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chenpeng.online/2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/";
+    this.page.identifier = "2021/01/06/Face-Forgery-Detection-by-3D-Decomposition/";
+    this.page.title = "Face Forgery Detection by 3D Decomposition";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://chenpeng-online.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
