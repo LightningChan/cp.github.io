@@ -907,4 +907,41 @@ H(P,Q)=-\sum_{i=1}^nP(x_i)log(Q(x_i))</script><p>即为相对熵中的$H_P(Q)$�
         <tag>Face Forgery Detection</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Identity-Driven DeepFake Detection</title>
+    <url>/2021/01/08/Identity-Driven-DeepFake-Detection/</url>
+    <content><![CDATA[<p>主要动机：现有的伪造人脸检测方法都是伪造痕迹驱动的，其在未知伪造方法合成的数据上效果大幅下降，且对压缩、噪声等鲁棒性不够。因此，论文提出一种新的鉴伪思路，即有目标对象的参考图像的情景。</p>
+<a id="more"></a>
+<p>核心贡献：1）提出有目标对象的参考图像的鉴伪场景；2）构建一个百万级别的数据集 Vox-Deepfake；2） 设计了一个基于人脸比对的基线方法 OuterFace。</p>
+<h3 id="vox-deepfake"><a class="markdownIt-Anchor" href="#vox-deepfake"></a> Vox-DeepFake</h3>
+<p>使用了 DeepFake, FSGAN 和 FaceShifter 三种伪造方法，构建了一个百万级别的换脸数据集。</p>
+<div style="text-align: center">
+<img src="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210108113259.PNG"/>
+</div>
+<h3 id="outerface"><a class="markdownIt-Anchor" href="#outerface"></a> OuterFace</h3>
+<p>采用人脸比对的方法，改进就是把五官区域遮挡起来，让模型关注头部区域的其他特征。</p>
+<div style="text-align: center">
+<img src="https://cpblogs.oss-cn-beijing.aliyuncs.com/CPBlogs/20210108113448.PNG"/>
+</div>
+<h3 id="my-review"><a class="markdownIt-Anchor" href="#my-review"></a> My Review</h3>
+<ul>
+<li>论文只考虑换脸这一种伪造类型，不知表情重演能不能适用？</li>
+<li>该方法可以用来保护特定人物以防御换脸攻击，对于不能获取参考对象则失去效用。</li>
+<li>在之前的换脸数据集上比较具体方法没有细讲，它们的背景差异较大，比较容易识别，不知比较是否公平？</li>
+<li>方法的泛化性和鲁棒性相当不错，虽然使用场景受限，也是可以跟进的研究点。</li>
+</ul>
+<h3 id="references"><a class="markdownIt-Anchor" href="#references"></a> References</h3>
+<ul>
+<li>[2020-12] Identity-Driven DeepFake Detection <a href="https://arxiv.org/abs/2012.03930"><code>paper</code></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>术业专攻</category>
+        <category>Media Forensics</category>
+        <category>Face Forgery Detection</category>
+      </categories>
+      <tags>
+        <tag>Face Forgery Detection</tag>
+      </tags>
+  </entry>
 </search>
